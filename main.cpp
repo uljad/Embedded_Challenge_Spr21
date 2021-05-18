@@ -50,7 +50,7 @@ int32_t ReadPressure ()
   Wire.write((uint8_t)0x0);
   Wire.endTransmission();
 
-  delay(20);
+  delay(5);
 
   Wire.requestFrom(PRESSURE_SENSOR_ADD,(uint8_t)4);
 
@@ -58,7 +58,6 @@ int32_t ReadPressure ()
   {        
 
     status=Wire.read();
-    delay(50);
     
     if (status & (1<<5)) //checking is bit 5 is set (=1)
     {
@@ -106,7 +105,7 @@ int32_t ReadPressure ()
 void setup() {
 
   Wire.begin(); 
-  Serial.begin(9600); 
+  Serial.begin(115200); 
 }
 
 void loop() {
@@ -146,7 +145,4 @@ void loop() {
   {
     Serial.println(myCalculatedPressure);
   }
-
-
-  delay(10);//can be made faster
 }
