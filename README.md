@@ -11,3 +11,8 @@ analysis.py -- All the Data Processing code without the GUI, shows final results
 analysis_gui_updated.py -- GUI wrap for the analysis. Lets the user collect real-time data or read from previous csv files. 
 
 *.csv -- Data files that can be read from the python code
+
+## Final Report
+
+https://www.overleaf.com/read/ryfsszdxdtxj
+
