@@ -6,6 +6,8 @@
 #define outMin 419430
 #define outMax 3774874
 
+const int BAUD_RATE       = 9600;
+
 /*==========================================
 Converts pressure to real pressure
 Returns a float calculated to transfer functions 
@@ -50,7 +52,7 @@ int32_t ReadPressure ()
   Wire.write((uint8_t)0x0);
   Wire.endTransmission();
 
-  delay(5);
+  delay(9);
 
   Wire.requestFrom(PRESSURE_SENSOR_ADD,(uint8_t)4);
 
@@ -59,7 +61,7 @@ int32_t ReadPressure ()
 
     status=Wire.read();
     
-    if (status & (1<<5)) //checking is bit 5 is set (=1)
+    if (status & (1<<5)) // -- checking is bit 5 is set (=1)
     {
       return (-1); //tell us that the device is busy
       Serial.println("2");
@@ -102,47 +104,17 @@ int32_t ReadPressure ()
 
 }
 
-void setup() {
-
+void setup() 
+{
   Wire.begin(); 
-  Serial.begin(115200); 
+  Serial.begin(BAUD_RATE); 
 }
 
-void loop() {
+void loop() 
+{
+  int32_t RawPressure = ReadPressure();
 
-  
-  uint32_t RawPressure = ReadPressure();
+  float myCalculatedPressure = GetRealPressure(RawPressure);
 
-  uint32_t myCalculatedPressure = GetRealPressure(RawPressure);
-
-  if (myCalculatedPressure<0)
-  {
-    //Life is tough
-    Serial.println("Life is tough");
-    switch (myCalculatedPressure)
-    {
-    case -1:
-      Serial.println("case -1");
-      break;
-
-    case -2: 
-      Serial.println("case -2");
-      break;
-
-    case -3:
-      Serial.println("case -3");
-      break;
-    
-    case -4:
-      Serial.println("case -4");
-      break;
-    default:
-      Serial.print("something is wrong");
-    }
-  }
-  
-  else 
-  {
-    Serial.println(myCalculatedPressure);
-  }
+  Serial.println(myCalculatedPressure, 4); 
 }
