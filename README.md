@@ -1,6 +1,6 @@
 # Embedded_Challenge_Spr21
 
-##File structure
+## File structure
 
 main.cpp -- Contains the PlatformIO src to read from the sensor to transfer the mmHg pressure to the Serial port
 
